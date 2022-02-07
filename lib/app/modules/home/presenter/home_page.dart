@@ -22,9 +22,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: AppBar(
         title: TextField(
           controller: searchController,
-          onChanged: (value) async {
-            await store.searchDev(value);
-          },
           decoration: InputDecoration(
             hintText: 'Digite ao menos dois caracteres.',
             border: OutlineInputBorder(
@@ -32,7 +29,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             filled: true,
             fillColor: Colors.white,
-            suffixIcon: const Icon(Icons.search),
+            suffixIcon: GestureDetector(
+              child: const Icon(Icons.search),
+              onTap: () async => await store.searchDev(searchController.text),
+            ),
             contentPadding: const EdgeInsets.symmetric(
               vertical: 12,
               horizontal: 8,
